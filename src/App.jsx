@@ -4,23 +4,24 @@ import clearIcon from "./assets/clear.png";
 import cloudIcon from "./assets/cloud.png";
 import drizzleIcon from "./assets/drizzle.png";
 import rainIcon from "./assets/rain.png";
-import noResultFound from "./assets/noResultFound.png";
 import snowIcon from "./assets/snow.png";
+import searchForCityIcon from "./assets/searchForCity.png";
 import WeatherDetails from "./components/WeatherDetails.jsx";
 import Loading from "./components/Loading.jsx";
+import noCityFound from "./assets/noCityFound.png";
 
 const App = () => {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
   const [cityNotFound, setCityNotFound] = useState(false);
-  const [icon, setIcon] = useState();
-  const [temp, setTemp] = useState(4);
-  const [city, setCity] = useState("London");
-  const [country, setCountry] = useState("India");
-  const [lat, setLat] = useState(0);
-  const [log, setLog] = useState(0);
-  const [humidity, setHumidity] = useState(85);
-  const [wind, setWind] = useState(55);
+  const [icon, setIcon] = useState(searchForCityIcon);
+  const [temp, setTemp] = useState(999);
+  const [city, setCity] = useState("Search For City");
+  const [country, setCountry] = useState("IN");
+  const [lat, setLat] = useState(999);
+  const [log, setLog] = useState(999);
+  const [humidity, setHumidity] = useState(999);
+  const [wind, setWind] = useState(999);
 
   //Weather Icon Map
   const weatherMap = {
@@ -105,7 +106,12 @@ const App = () => {
                 <FcSearch />
               </button>
             </div>
-            <div className="flex items-center justify-center h-screen">
+            <div className="flex items-center justify-center h-screen flex-col">
+              <img
+                src={noCityFound}
+                alt="no Result"
+                className="rounded-3xl w-52 mb-6"
+              />
               <div className="text-3xl font-bold text-yellow-500">
                 CITY NOT FOUND!
               </div>
@@ -129,7 +135,7 @@ const App = () => {
               onKeyDown={handleKeyDown}
             />
 
-            <button className="text-xl btn btn-sm " onClick={() => search()}>
+            <button className="text-xl btn btn-sm" onClick={() => search()}>
               <FcSearch />
             </button>
           </div>

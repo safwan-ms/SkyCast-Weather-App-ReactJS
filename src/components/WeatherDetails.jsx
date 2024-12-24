@@ -15,8 +15,12 @@ const WeatherDetails = ({
   return (
     <div className="font-mono text-white">
       {/* Weather Icon */}
-      <div className="flex justify-center">
-        <img src={icon} className="h-[160px] w-[160px]" alt="Image" />
+      <div className="flex justify-center mt-3 ">
+        <img
+          src={icon}
+          className="h-[160px] w-[160px] rounded-2xl"
+          alt="Image"
+        />
       </div>
 
       {/* Tempature */}
@@ -61,7 +65,7 @@ const WeatherDetails = ({
           <img src={windIcon} alt="Wind" className="w-12 h-12" />
           <div className="data">
             <div className="pt-1 text-lg font-bold wind-percentage">
-              {wind}%
+              {wind} km/h
             </div>
             <div className="text-sm text ">Wind Speed</div>
           </div>
