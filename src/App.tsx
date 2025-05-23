@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, KeyboardEvent, useState } from "react";
 import { FcSearch } from "react-icons/fc";
 import clearIcon from "./assets/clear.png";
 import cloudIcon from "./assets/cloud.png";
@@ -6,22 +6,22 @@ import drizzleIcon from "./assets/drizzle.png";
 import rainIcon from "./assets/rain.png";
 import snowIcon from "./assets/snow.png";
 import searchForCityIcon from "./assets/searchForCity.png";
-import WeatherDetails from "./components/WeatherDetails.jsx";
-import Loading from "./components/Loading.jsx";
+import WeatherDetails from "./components/WeatherDetails";
+import Loading from "./components/Loading";
 import noCityFound from "./assets/noCityFound.png";
 
 const App = () => {
-  const [text, setText] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [cityNotFound, setCityNotFound] = useState(false);
-  const [icon, setIcon] = useState(searchForCityIcon);
-  const [temp, setTemp] = useState(999);
-  const [city, setCity] = useState("Search For City");
-  const [country, setCountry] = useState("IN");
-  const [lat, setLat] = useState(999);
-  const [log, setLog] = useState(999);
-  const [humidity, setHumidity] = useState(999);
-  const [wind, setWind] = useState(999);
+  const [text, setText] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [cityNotFound, setCityNotFound] = useState<boolean>(false);
+  const [icon, setIcon] = useState<string>(searchForCityIcon);
+  const [temp, setTemp] = useState<number>(999);
+  const [city, setCity] = useState<string>("Search For City");
+  const [country, setCountry] = useState<string>("IN");
+  const [lat, setLat] = useState<number>(999);
+  const [log, setLog] = useState<number>(999);
+  const [humidity, setHumidity] = useState<number>(999);
+  const [wind, setWind] = useState<number>(999);
 
   //Weather Icon Map
   const weatherMap = {
@@ -54,6 +54,7 @@ const App = () => {
         console.log("City not found");
         setCityNotFound(true);
         setLoading(false);
+        return;
       }
       console.log(data);
       setHumidity(data.main.humidity);
@@ -63,7 +64,11 @@ const App = () => {
       setCountry(data.sys.country);
       setLat(data.coord.lat);
       setLog(data.coord.lon);
-      const weatherIconCode = data.weather[0].icon;
+
+      type WeatherIconCode = keyof typeof weatherMap;
+
+      const weatherIconCode = data.weather[0].icon as WeatherIconCode;
+
       setIcon(weatherMap[weatherIconCode] || clearIcon);
 
       setCityNotFound(false);
@@ -72,15 +77,15 @@ const App = () => {
       console.log(data);
     } catch (error) {
       setCityNotFound(true);
-      console.error("An error occured: ", error.message);
+      console.error("An error occurred:", (error as Error).message);
     } finally {
       setLoading(false);
     }
   };
-  const handleCity = (e) => {
+  const handleCity = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       search();
     }

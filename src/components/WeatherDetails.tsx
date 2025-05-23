@@ -1,7 +1,15 @@
-import React from "react";
 import windIcon from "../assets/wind.png";
 import humidityIcon from "../assets/humidity.png";
-
+interface WeatherDetailsProps {
+  icon: string;
+  temp: number;
+  city: string;
+  country: string;
+  lat: number;
+  log: number;
+  wind: number;
+  humidity: number;
+}
 const WeatherDetails = ({
   icon,
   temp,
@@ -11,7 +19,7 @@ const WeatherDetails = ({
   log,
   humidity,
   wind,
-}) => {
+}: WeatherDetailsProps) => {
   return (
     <div className="font-mono text-white">
       {/* Weather Icon */}
