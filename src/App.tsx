@@ -42,7 +42,7 @@ const App = () => {
   };
 
   // Api key
-  const apiKey = "8c288ee26aaeaa58dbe9eb3eb302094b";
+  const apiKey = import.meta.env.VITE_API_KEY;
   const search = async () => {
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${text}&appid=${apiKey}&units=Metric`;
 
